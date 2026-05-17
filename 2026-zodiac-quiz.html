@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 流年測驗｜12星座的2026-2033</title>
+<meta name="description" content="測測你的2026年流年主題，只需3個問題，1分鐘解鎖你的年度關鍵字。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #B8D4E8;
+    --deep: #1A2744;
+    --gold: #C9A84C;
+    --cream: #F7F3EE;
+    --mist: #E8EFF5;
+    --accent: #7B9BB5;
+    --text: #2C3E50;
+    --soft: #8A9BB0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Sky background */
+  .sky-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, #c9dff0 0%, #e8f2f9 40%, #F7F3EE 100%);
+    z-index: -1;
+  }
+
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 40%;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--deep);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: twinkle 3s infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* Main container */
+  .container {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .header-badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .header h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(26px, 7vw, 36px);
+    font-weight: 900;
+    color: var(--deep);
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .header h1 span {
+    color: var(--gold);
+  }
+
+  .header p {
+    font-size: 14px;
+    color: var(--soft);
+    line-height: 1.7;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Progress */
+  .progress-wrap {
+    margin-bottom: 1.75rem;
+    animation: fadeIn 0.6s ease 0.3s both;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--soft);
+    margin-bottom: 8px;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: rgba(26,39,68,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Card */
+  .card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 40px rgba(26,39,68,0.08), 0 2px 8px rgba(26,39,68,0.04);
+    animation: fadeUp 0.6s ease both;
+    flex: 1;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Step */
+  .step { display: none; }
+  .step.active { display: block; }
+
+  /* Welcome screen */
+  .welcome-icon {
+    width: 72px; height: 72px;
+    margin: 0 auto 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--sky), var(--mist));
+    border-radius: 50%;
+    font-size: 32px;
+  }
+
+  .welcome-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--deep);
+    text-align: center;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .welcome-desc {
+    font-size: 14px;
+    color: var(--soft);
+    text-align: center;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .welcome-tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    background: var(--mist);
+    border-radius: 20px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* Question */
+  .q-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .q-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--deep);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Sign grid */
+  .sign-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 1.75rem;
+  }
+
+  .sign-btn {
+    background: var(--mist);
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    padding: 10px 4px;
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 12px;
+    color: var(--text);
+    text-align: center;
+    transition: all 0.2s ease;
+    line-height: 1.3;
+  }
+
+  .sign-btn .sign-emoji { display: block; font-size: 18px; margin-bottom: 3px; }
+
+  .sign-btn:hover {
+    background: white;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26,39,68,0.1);
+  }
+
+  .sign-btn.selected {
+    background: var(--deep);
+    border-color: var(--deep);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(26,39,68,0.25);
+  }
+
+  /* Options */
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.75rem; }
+
+  .opt {
+    background: var(--mist);
+    border: 1.5px solid transparent;
+    border-radius: 14px;
+    padding: 16px 14px;
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    text-align: left;
+    transition: all 0.2s ease;
+    line-height: 1.5;
+  }
+
+  .opt .opt-emoji { font-size: 22px; display: block; margin-bottom: 6px; }
+  .opt .opt-sub { font-size: 11px; color: var(--soft); display: block; margin-top: 3px; }
+
+  .opt:hover {
+    background: white;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26,39,68,0.08);
+  }
+
+  .opt.selected {
+    background: var(--deep);
+    border-color: var(--deep);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(26,39,68,0.25);
+  }
+
+  .opt.selected .opt-sub { color: rgba(255,255,255,0.6); }
+
+  /* Button */
+  .btn-wrap { display: flex; justify-content: flex-end; }
+
+  .btn-next {
+    background: var(--deep);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .btn-next:hover:not(:disabled) {
+    background: #2A3B5C;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(26,39,68,0.25);
+  }
+
+  .btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .btn-start {
+    width: 100%;
+    background: linear-gradient(135deg, var(--deep), #2A3B5C);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 28px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26,39,68,0.3);
+  }
+
+  /* Result */
+  .result-header {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(26,39,68,0.08);
+    margin-bottom: 1.5rem;
+  }
+
+  .result-sign-name {
+    font-size: 13px;
+    color: var(--soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .result-keyword {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(36px, 12vw, 56px);
+    font-weight: 900;
+    color: var(--deep);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .result-keyword span { color: var(--gold); }
+
+  .result-theme {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .result-body {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    background: var(--mist);
+    border-radius: 20px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* CTA */
+  .cta-box {
+    background: linear-gradient(135deg, var(--deep) 0%, #2A3B5C 100%);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-box::before {
+    content: '✦';
+    position: absolute;
+    top: -10px; right: 20px;
+    font-size: 80px;
+    color: rgba(255,255,255,0.04);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cta-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--deep);
+    border: none;
+    border-radius: 50px;
+    padding: 11px 22px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .cta-btn:hover {
+    background: #D4AF5A;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(201,168,76,0.4);
+  }
+
+  .retry-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(26,39,68,0.15);
+    border-radius: 50px;
+    padding: 12px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    color: var(--soft);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 4px;
+  }
+
+  .retry-btn:hover { background: var(--mist); color: var(--text); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding-top: 2rem;
+    font-size: 12px;
+    color: var(--soft);
+  }
+
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  /* Divider */
+  .divider {
+    text-align: center;
+    font-size: 20px;
+    color: var(--gold);
+    margin: 1rem 0;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="sky-bg"></div>
+<div class="stars" id="stars"></div>
+
+<div class="container">
+  <header class="header">
+    <div class="header-badge">@laiwingkwan</div>
+    <h1>2026 流年<span>測驗</span></h1>
+    <p>3個問題 × 1分鐘<br>解鎖你的2026年關鍵主題</p>
+  </header>
+
+  <div class="progress-wrap" id="progress-wrap" style="display:none">
+    <div class="progress-meta">
+      <span id="step-label">第 1 題，共 3 題</span>
+      <span id="step-pct">33%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:33%"></div></div>
+  </div>
+
+  <div class="card">
+
+    <!-- Step 0: Welcome -->
+    <div class="step active" id="s0">
+      <div class="welcome-icon">✦</div>
+      <div class="welcome-title">你的2026年<br>藏著什麼秘密？</div>
+      <p class="welcome-desc">行星正在移動<br>每個星座都有一個2026年的關鍵字<br>你的是什麼？</p>
+      <div class="welcome-tags">
+        <span class="tag">木星巨蟹座</span>
+        <span class="tag">土星白羊座</span>
+        <span class="tag">天王星雙子座</span>
+      </div>
+      <button class="btn-start" onclick="goTo(1)">開始測驗 →</button>
+    </div>
+
+    <!-- Step 1: Sign -->
+    <div class="step" id="s1">
+      <div class="q-label">問題 1 / 3</div>
+      <div class="q-title">你是哪個星座？</div>
+      <div class="sign-grid" id="sign-grid">
+        <button class="sign-btn" data-sign="牡羊座" onclick="selectSign(this)"><span class="sign-emoji">♈</span>牡羊座</button>
+        <button class="sign-btn" data-sign="金牛座" onclick="selectSign(this)"><span class="sign-emoji">♉</span>金牛座</button>
+        <button class="sign-btn" data-sign="雙子座" onclick="selectSign(this)"><span class="sign-emoji">♊</span>雙子座</button>
+        <button class="sign-btn" data-sign="巨蟹座" onclick="selectSign(this)"><span class="sign-emoji">♋</span>巨蟹座</button>
+        <button class="sign-btn" data-sign="獅子座" onclick="selectSign(this)"><span class="sign-emoji">♌</span>獅子座</button>
+        <button class="sign-btn" data-sign="處女座" onclick="selectSign(this)"><span class="sign-emoji">♍</span>處女座</button>
+        <button class="sign-btn" data-sign="天秤座" onclick="selectSign(this)"><span class="sign-emoji">♎</span>天秤座</button>
+        <button class="sign-btn" data-sign="天蠍座" onclick="selectSign(this)"><span class="sign-emoji">♏</span>天蠍座</button>
+        <button class="sign-btn" data-sign="射手座" onclick="selectSign(this)"><span class="sign-emoji">♐</span>射手座</button>
+        <button class="sign-btn" data-sign="摩羯座" onclick="selectSign(this)"><span class="sign-emoji">♑</span>摩羯座</button>
+        <button class="sign-btn" data-sign="水瓶座" onclick="selectSign(this)"><span class="sign-emoji">♒</span>水瓶座</button>
+        <button class="sign-btn" data-sign="雙魚座" onclick="selectSign(this)"><span class="sign-emoji">♓</span>雙魚座</button>
+      </div>
+      <div class="btn-wrap">
+        <button class="btn-next" id="next1" disabled onclick="goTo(2)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Focus -->
+    <div class="step" id="s2">
+      <div class="q-label">問題 2 / 3</div>
+      <div class="q-title">2026年你最在乎哪一塊？</div>
+      <div class="opts" id="opts2">
+        <button class="opt" data-v="career" onclick="selectOpt(this,'opts2','next2')">
+          <span class="opt-emoji">💼</span>
+          事業與財富
+          <span class="opt-sub">突破、升遷、收入</span>
+        </button>
+        <button class="opt" data-v="love" onclick="selectOpt(this,'opts2','next2')">
+          <span class="opt-emoji">💫</span>
+          感情與關係
+          <span class="opt-sub">緣分、婚戀、家庭</span>
+        </button>
+        <button class="opt" data-v="health" onclick="selectOpt(this,'opts2','next2')">
+          <span class="opt-emoji">🌿</span>
+          健康與能量
+          <span class="opt-sub">體力、心態、療癒</span>
+        </button>
+        <button class="opt" data-v="growth" onclick="selectOpt(this,'opts2','next2')">
+          <span class="opt-emoji">✨</span>
+          成長與自我
+          <span class="opt-sub">學習、轉變、靈性</span>
+        </button>
+      </div>
+      <div class="btn-wrap">
+        <button class="btn-next" id="next2" disabled onclick="goTo(3)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Style -->
+    <div class="step" id="s3">
+      <div class="q-label">問題 3 / 3</div>
+      <div class="q-title">面對未知，你通常會？</div>
+      <div class="opts" id="opts3">
+        <button class="opt" data-v="action" onclick="selectOpt(this,'opts3','next3')">
+          <span class="opt-emoji">⚡</span>
+          直接行動
+          <span class="opt-sub">先做再說，調整再來</span>
+        </button>
+        <button class="opt" data-v="plan" onclick="selectOpt(this,'opts3','next3')">
+          <span class="opt-emoji">🗺</span>
+          仔細規劃
+          <span class="opt-sub">想清楚才出手</span>
+        </button>
+        <button class="opt" data-v="feel" onclick="selectOpt(this,'opts3','next3')">
+          <span class="opt-emoji">🌊</span>
+          跟著感覺
+          <span class="opt-sub">直覺帶路，隨機應變</span>
+        </button>
+        <button class="opt" data-v="wait" onclick="selectOpt(this,'opts3','next3')">
+          <span class="opt-emoji">🦅</span>
+          觀察等待
+          <span class="opt-sub">看準時機再出手</span>
+        </button>
+      </div>
+      <div class="btn-wrap">
+        <button class="btn-next" id="next3" disabled onclick="showResult()">查看結果 →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Result -->
+    <div class="step" id="s4"></div>
+
+  </div><!-- end card -->
+
+  <div class="footer">
+    <p>《12星座的2026-2033》by <a href="https://instagram.com/laiwingkwan" target="_blank">@laiwingkwan</a></p>
+  </div>
+</div>
+
+<script>
+// Stars
+const starsEl = document.getElementById('stars');
+for(let i=0;i<40;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${Math.random()*2+1}px;height:${Math.random()*2+1}px;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;
+  starsEl.appendChild(s);
+}
+
+const answers={sign:'',focus:'',style:''};
+
+const results={
+  牡羊座:{
+    keyword:'扎根',
+    career:{text:'土星海王星同時入主你的星座，2026是把想法變行動的一年。那個放在備忘錄裡一年的計劃，今年必須動起來。行動比完美重要，先出發，再調整。',tags:['行動力','目標設定','突破框架']},
+    love:{text:'木星帶來桃花，但牡羊座的緣分在出門之後。書中說：「戀愛在出門轉角或者海外，又或者與外國人來電」。2026年不要守株待兔，勇敢走出去。',tags:['桃花運','出走','勇氣']},
+    health:{text:'衝勁十足是你的優勢，但注意頭部與睡眠。土星要求你建立規律，不是叫你停下來，是讓你跑得更久。',tags:['作息規律','運動','壓力管理']},
+    growth:{text:'海王星為你注入靈性與同理心，土星則要求落地實踐。2026年你最大的成長，是把抽象的理想變成具體可執行的方向。',tags:['靈性成長','自我探索','落地行動']}
+  },
+  金牛座:{
+    keyword:'蛻變',
+    career:{text:'天王星離開命宮，進入財帛宮，財務與賺錢方式迎來革新。那個你一直不敢嘗試的副業或投資方向，2026年是時候認真研究了。',tags:['財務革新','副業','新收入']},
+    love:{text:'潛意識宮位受土海影響，過去的情感課題浮現，適合深度療癒。木星帶來溝通宮的開放，兄弟姊妹或朋友是你今年的感情貴人。',tags:['療癒','深度連結','朋友介紹']},
+    health:{text:'消化系統需要關注，規律飲食比健身更重要。心理層面同樣需要梳理，考慮冥想或身心靈課程。',tags:['飲食規律','身心靈','梳理情緒']},
+    growth:{text:'過去七年天王星在命宮的震盪，都是為了讓你建立更彈性的自我。2026年天王星進入財帛宮，學習讓金錢流動，才是真正的安全感。',tags:['彈性思維','金錢觀','安全感重塑']}
+  },
+  雙子座:{
+    keyword:'升級',
+    career:{text:'木星在財帛宮，上半年財運和機會同步增加。書中說：「財運與收入增加，賺錢機會變多，或者獲得加薪、獎金」。把你的表達能力變成收入，現在是最佳時機。',tags:['財運爆發','表達力','機會把握']},
+    love:{text:'選擇變多，但曖昧拖太久容易錯失良機。書中說：「感情需要你說清楚自己要什麼」。2026年練習直接，不要讓對方猜。',tags:['直接表達','感情方向','把握機緣']},
+    health:{text:'神經系統容易緊繃，資訊過載是你最大的健康殺手。每天設定一段不看螢幕的時間，讓大腦真正休息。',tags:['資訊排毒','神經系統','深度休息']},
+    growth:{text:'天王星正式入主命宮，你的身份、形象、人生方向全面翻新。這不是失去，是做回真實的自己。那個你一直壓抑的版本，2026年終於可以出現。',tags:['身份覺醒','真實自我','全面升級']}
+  },
+  巨蟹座:{
+    keyword:'豐收',
+    career:{text:'木星在命宮，這是近年對你最友善的一年。書中說：「木星就是你的保護網」。那件一直想做卻因為害怕失敗而拖延的事，現在動手，還來得及。',tags:['木星保護','勇敢嘗試','豐收時機']},
+    love:{text:'木星帶來情感滋養，家庭和感情運勢溫暖。書中說：「父母或對你養育之恩的人是你的貴人」。感情在熟悉的圈子裡發生，不要忽略身邊的人。',tags:['家庭緣分','情感滋養','貴人相助']},
+    health:{text:'情緒與腸胃連動，學會辨識哪些是你自己的情緒，哪些是替別人承受的。建立情緒清理的習慣，比任何補品都有效。',tags:['情緒管理','腸胃健康','界限設定']},
+    growth:{text:'2026年的巨蟹座，最大的成長是學會「接受幫助」。木星給你勇氣，但你要先伸出手。停止什麼都自己扛，讓木星發揮作用。',tags:['接受支持','勇氣行動','內在安全感']}
+  },
+  獅子座:{
+    keyword:'重生',
+    career:{text:'上半年木星在潛意識宮位，適合清理和沉澱。下半年木星進入命宮，書中說：「這是你閃耀的時刻，人們會被你的熱情和活力所吸引」。先清理，才能真正發光。',tags:['重生閃耀','個人品牌','登台時刻']},
+    love:{text:'書中說：「戀愛與親密關係也可能帶來激情契機」。下半年木星入命宮後，你的個人魅力全面提升，主動一點，桃花會跟著來。',tags:['個人魅力','主動出擊','激情契機']},
+    health:{text:'心臟和血壓需要關注，特別是高強度工作期間。下半年能量充沛，但記得定期排入真正的休息，不是虛假的休息。',tags:['心臟保養','能量管理','真實休息']},
+    growth:{text:'過去三年的內在清理，都是為了今天。書中說：「當你清理好內在的淤泥之後，2026下半年木星進入命宮，這是以全新價值觀亮相的時刻」。',tags:['內在清理','全新形象','靈魂升級']}
+  },
+  處女座:{
+    keyword:'突破',
+    career:{text:'天王星在事業宮，書中說：「天王星逼你打破不合時宜的經營方法，開創一條屬於自己的獨特之路」。你現在站在山頂，天王星要你跳到下一座山。先跳，再想。',tags:['事業突破','破舊立新','獨特之路']},
+    love:{text:'上半年木星帶來社交圈擴大，新的人際接觸可能帶來意外緣分。書中說：「適合向外拓展，社交圈擴大變得更加活躍」。走出你的標準，可能遇到超出預期的人。',tags:['社交擴圈','意外緣分','放下標準']},
+    health:{text:'下半年木星進入潛意識宮，書中說：「適合從事幕後工作或任何需要獨處和深度思考的職業」。身體的訊號需要你真正傾聽，不是壓下去繼續跑。',tags:['深度休息','身體傾聽','療癒時機']},
+    growth:{text:'你一直是最仔細的人，但2026年的功課是學會在不完美的情況下前進。AI能做的細節工作讓AI去做，你專注在判斷力和創意，那是任何工具取代不了的。',tags:['放下完美','判斷力','創意價值']}
+  },
+  天秤座:{
+    keyword:'辨別',
+    career:{text:'書中說：「過去的努力在此時開花結果，天秤座的責任或頭銜可以再升一級」。那些沒有被看見的努力，2026年終於輪到你了。主動讓對的人看見你的價值。',tags:['升職時機','努力開花','被看見']},
+    love:{text:'土星海王星在伴侶宮，書中說：「需要學會認清虛實的關係，建立堅定有價值的關係」。感情運勢升溫，但要辨別真心還是幻象，這是今年最重要的感情功課。',tags:['感情辨別','真實關係','承諾決定']},
+    health:{text:'腎臟與泌尿系統多喝水就能預防。過去兩年職場上的努力耗損了能量，2026年要認真補回來，規律作息不是選項，是必要條件。',tags:['規律作息','補充能量','腎臟保養']},
+    growth:{text:'你今年最大的課題是做決定。書中說：「模糊不清消耗的能量，比做錯決定還要多」。天秤座，選了就全力以赴，不要在兩者之間永遠游移。',tags:['決斷力','全力以赴','告別猶豫']}
+  },
+  天蠍座:{
+    keyword:'專業',
+    career:{text:'書中說：「土星調教三年，你現在的作品和三年前不一樣了。是時候讓世界正式看見你」。把那個藏在硬碟裡沒人看過的作品，今年發出去。你已經準備好了。',tags:['才華曝光','作品發布','專業認可']},
+    love:{text:'書中說：「你會認真看待戀愛，對膚淺的調情失去興趣，開始認真尋找有承諾的關係」。木星上半年帶來視野擴展，可能在旅行或學習中遇到深度連結的對象。',tags:['深度連結','認真關係','旅途緣分']},
+    health:{text:'生殖泌尿系統需定期檢查，同等重要的是心理健康。土星要求你面對那些避而不談的議題，心理諮詢是這一年性價比最高的投資。',tags:['心理健康','深層療癒','定期檢查']},
+    growth:{text:'2026年是天蠍座把深度變成影響力的一年。你看穿事物的眼光，是AI永遠複製不了的。把你的洞察變成內容，讓世界看見你看問題的方式。',tags:['深度洞察','內容創作','影響力建立']}
+  },
+  射手座:{
+    keyword:'起飛',
+    career:{text:'書中說：「你的知識與想法將有機會傳播到更廣的舞台，出版書籍、發表文章、開設課程，或透過媒體與社群平台分享見解，吸引海外觀眾」。你的故事，值得被更多人聽見。',tags:['知識輸出','海外舞台','個人品牌']},
+    love:{text:'書中說：「你會因工作或學習而出國旅行」。你的緣分在旅途中，可能是同一個旅行團，可能是青年旅舍的同房，對方可能是外國人，語言不通也沒關係。',tags:['旅途桃花','跨文化緣分','出走遇緣']},
+    health:{text:'大腿和肝臟需要關注，節制飲食比過度健身更有效。上半年清理內在課題，下半年能量全面外放，需要提前儲備足夠的體力。',tags:['飲食節制','體力儲備','肝臟保養']},
+    growth:{text:'你在家庭和內心兜兜轉轉了好幾年，終於，行星移動到讓你舒服的位置。書中說：「下半年木星進入第九宮，這是木星最喜歡的位置」。天馬，可以跑了。',tags:['自由起飛','視野擴張','冒險精神']}
+  },
+  摩羯座:{
+    keyword:'回歸',
+    career:{text:'書中說：「木星帶來事業全面衝刺、聲望高漲與地位提升的機會」。埋頭苦幹這麼多年，2026年是摩羯座的驗收時刻。停止低調，你的成就值得被看見。',tags:['成就驗收','聲望提升','停止低調']},
+    love:{text:'書中說：「單身的你非常有利於遇見一位能帶來正面影響、甚至是有潛力步入婚姻的對象」。對方可能來自不同文化背景，木星打開了你對感情的視野。',tags:['婚戀機遇','視野打開','穩固關係']},
+    health:{text:'骨骼和關節需要保養，長時間久坐要記得起身活動。土海合相要求你重新定義「休息」——不是倒下，是主動滋養。',tags:['骨骼保養','主動休息','滋養自己']},
+    growth:{text:'高調處理外界眼光已經夠久了。書中說：「2026年，行星說：該回去找自己了」。真正的歸宿在內心，不在別人的眼裡。這一年允許自己脆弱。',tags:['回歸內在','允許脆弱','真實歸宿']}
+  },
+  水瓶座:{
+    keyword:'覺醒',
+    career:{text:'書中說：「冥王星在你的星座，你的前衛與獨特，正是這個時代需要的」。你一直是最聰明的那個人，2026年終於輪到你站到台前。那個「太瘋狂沒人懂」的想法，說出來。',tags:['時代先鋒','前衛思維','走到台前']},
+    love:{text:'書中說：「單身者可能因社交圈、朋友聚會或轉角碰到而一見鍾情」。下半年木星進入伴侶宮，帶有強烈宿命感的相遇可能在意想不到的地方發生。',tags:['宿命相遇','社群緣分','深度連結']},
+    health:{text:'循環系統與踝關節多留意，高強度思考後記得讓大腦真正休息。你消耗的不只是體力，更是腦力和靈性能量，補充方式也要升級。',tags:['腦力補充','循環系統','靈性充電']},
+    growth:{text:'冥王星水瓶座要待到2044年。書中說：「接下來二十年，都是水瓶的主場」。你天生的前衛與獨特，正是這個時代最需要的能量。這一年，允許自己被看見。',tags:['二十年主場','被看見','時代能量']}
+  },
+  雙魚座:{
+    keyword:'驗收',
+    career:{text:'書中說：「木星進入雙魚座的表現宮位，你的靈感與創意被前所未有地激發」。有一個作品或想法讓你覺得「這個是真的好」——把它完成，發出去，現在就是你展示的時候。',tags:['創意爆發','展示時機','靈感落地']},
+    love:{text:'書中說：「單身的雙魚可能會在旅行、聚會、社群或朋友活動中遇見桃花，並迅速展開戀情」。上半年木星帶來浪漫契機，走出去，感情不會自己走進你房間。',tags:['浪漫契機','走出去遇緣','迅速展開']},
+    health:{text:'免疫和睡眠品質優先。過度共情他人情緒會消耗你的能量，學會設界限不是自私，是讓你有能量繼續幫助別人的必要條件。',tags:['情緒界限','免疫保養','深度睡眠']},
+    growth:{text:'土星三年的命宮修練畫下句點。書中說：「2026年是苦盡甘來的一年，收穫的季節到了」。你撐過來了，而且比任何人都更清楚自己走過了什麼。',tags:['苦盡甘來','收穫季節','成熟自信']}
+  }
+};
+
+function goTo(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  const pw=document.getElementById('progress-wrap');
+  if(n===0){pw.style.display='none';}
+  else if(n<=3){
+    pw.style.display='block';
+    const pct=Math.round(n/3*100);
+    document.getElementById('progress-fill').style.width=pct+'%';
+    document.getElementById('step-label').textContent='第 '+n+' 題，共 3 題';
+    document.getElementById('step-pct').textContent=pct+'%';
+  } else {
+    pw.style.display='none';
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function selectSign(btn){
+  document.querySelectorAll('#sign-grid .sign-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers.sign=btn.dataset.sign;
+  document.getElementById('next1').disabled=false;
+}
+
+function selectOpt(btn,gridId,nextId){
+  document.querySelectorAll('#'+gridId+' .opt').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  if(gridId==='opts2') answers.focus=btn.dataset.v;
+  else answers.style=btn.dataset.v;
+  document.getElementById(nextId).disabled=false;
+}
+
+function showResult(){
+  const {sign,focus}=answers;
+  const r=results[sign];
+  const d=r[focus];
+  const styleLabels={action:'行動型',plan:'規劃型',feel:'直覺型',wait:'觀察型'};
+  const focusLabels={career:'事業財富',love:'感情關係',health:'健康能量',growth:'成長自我'};
+
+  const html=`
+    <div class="result-header">
+      <div class="result-sign-name">${sign} · ${focusLabels[focus]}</div>
+      <div class="result-keyword">2026<span>${r.keyword}</span></div>
+      <div class="result-theme">你的年度關鍵字</div>
+    </div>
+    <p class="result-body">${d.text}</p>
+    <div class="result-tags">${d.tags.map(t=>`<span class="result-tag">${t}</span>`).join('')}</div>
+    <div class="cta-box">
+      <div class="cta-title">想知道完整的2026流年解析？</div>
+      <div class="cta-desc">《12星座的2026-2033》收錄${sign}全年逐月運勢、行星分析與行動指南，帶你提前掌握每個轉捩點。</div>
+      <a href="https://drive.google.com/file/d/1y0aT4AJP5O1mVwJcGTLn..." class="cta-btn" target="_blank">立即購書 →</a>
+    </div>
+    <button class="retry-btn" onclick="resetQuiz()">重新測驗</button>
+  `;
+  document.getElementById('s4').innerHTML=html;
+  goTo(4);
+}
+
+function resetQuiz(){
+  answers.sign=''; answers.focus=''; answers.style='';
+  document.querySelectorAll('.sign-btn').forEach(b=>b.classList.remove('selected'));
+  document.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('next1').disabled=true;
+  document.getElementById('next2').disabled=true;
+  document.getElementById('next3').disabled=true;
+  goTo(0);
+}
+</script>
+</body>
+</html>
